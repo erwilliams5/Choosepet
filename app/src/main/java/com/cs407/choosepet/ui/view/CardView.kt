@@ -24,8 +24,8 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun CardView() {
-    var leftImage by remember { mutableStateOf(R.drawable.dog) }
-    var rightImage by remember { mutableStateOf(R.drawable.cat) }
+    var leftImage by remember { mutableStateOf(R.drawable.who_am_i) }
+    var rightImage by remember { mutableStateOf(R.drawable.who_am_i) }
     val scope = rememberCoroutineScope()
     var leftCountdown by remember { mutableStateOf<Int?>(null) }
     var rightCountdown by remember { mutableStateOf<Int?>(null) }
