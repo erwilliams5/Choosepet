@@ -7,6 +7,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -33,6 +34,13 @@ fun ImageCard(
                 contentScale = ContentScale.Crop,
                 modifier = Modifier.size(200.dp).graphicsLayer(alpha = alpha),
             )
+            if (countdown != null) {
+                Text(
+                    text = countdown.toString(),
+                    style = MaterialTheme.typography.headlineLarge,
+                    color = Color.Red
+                )
+            }
         }
     }
 }

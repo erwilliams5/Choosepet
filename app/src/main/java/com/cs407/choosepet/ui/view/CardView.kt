@@ -19,12 +19,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.cs407.choosepet.R
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @Composable
 fun CardView() {
     var leftImage by remember { mutableStateOf(R.drawable.dog) }
     var rightImage by remember { mutableStateOf(R.drawable.cat) }
     val scope = rememberCoroutineScope()
+    var leftCountdown by remember { mutableStateOf<Int?>(null) }
+    var rightCountdown by remember { mutableStateOf<Int?>(null) }
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -46,17 +50,34 @@ fun CardView() {
         ) {
             ImageCard(
                 leftImage,
-                countdown = 5,
+                countdown = leftCountdown,
                 onClick = {
-                    5
+                    scope.launch {
+                        launch {
+                            for (i in 3 downTo 1) {
+                                leftCountdown = i
+                                delay(1000)
+                            }
+                            leftCountdown = null
+                        }
+                    }
                 },
                 modifier = Modifier.weight(1f),
             )
             Spacer(modifier = Modifier.width(16.dp))
             ImageCard(
                 rightImage,
-                countdown = 5,
+                countdown = rightCountdown,
                 onClick = {
+                    scope.launch {
+                        launch {
+                            for (i in 3 downTo 1) {
+                                rightCountdown = i
+                                delay(1000)
+                            }
+                            rightCountdown = null
+                        }
+                    }
                 },
                 modifier = Modifier.weight(1f),
             )
