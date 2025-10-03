@@ -12,15 +12,17 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImage
 
 @Composable
 fun ImageCard(
-    imageRes: Int,
+    imageRes: Int? = null,
     countdown: Int?,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     alpha: Float = 1f,
+    imageUrl: String? = null,
 ) {
     Card(
         modifier = modifier
@@ -28,12 +30,25 @@ fun ImageCard(
             .clickable(enabled = enabled) { onClick() }
     ) {
         Box(contentAlignment = Alignment.Center) {
-            Image(
-                painter = painterResource(id = imageRes),
-                contentDescription = null,
-                contentScale = ContentScale.Crop,
-                modifier = Modifier.size(200.dp).graphicsLayer(alpha = alpha),
-            )
+            if (imageUrl != null) {
+                AsyncImage(
+                    model = imageUrl,
+                    contentDescription = null,
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier
+                        .size(200.dp)
+                        .graphicsLayer(alpha = alpha)
+                )
+            } else if (imageRes != null) {
+                Image(
+                    painter = painterResource(id = imageRes),
+                    contentDescription = null,
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier
+                        .size(200.dp)
+                        .graphicsLayer(alpha = alpha),
+                )
+            }
             if (countdown != null) {
                 Text(
                     text = countdown.toString(),
